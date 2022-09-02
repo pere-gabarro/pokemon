@@ -1,6 +1,9 @@
-def get_effectiveness(attacking_type, defending_type)
+# provides methods to do battles between 2 pokemon
+class PokemonBattle
+  BASE_DAMAGE = 50
+
   # chart at https://pokemondb.net/type
-  effectiveness = {
+  EFFECTIVENESS_CHART = {
     [:fire, :fire] => 0.5,
     [:fire, :water] => 0.5,
     [:fire, :electric] => 1,
@@ -22,10 +25,12 @@ def get_effectiveness(attacking_type, defending_type)
     [:grass, :grass] => 0.5
   }
 
-  return effectiveness[[attacking_type, defending_type]]
-end
+  def effectiveness(attacking_type, defending_type)
+    EFFECTIVENESS_CHART[[attacking_type, defending_type]]
+  end
 
-def get_damage(attacking_type, attacking_attack, defending_type, defending_attack)
-  # 50 * (attack/defense) * effectiveness
-  return 50 * (attacking_attack/defending_attack) * get_effectiveness(attacking_type, defending_type)
+  def calculate_damage(attacking_type, attacking_attack, defending_type, defending_attack)
+    # BASE_DAMAGE * (attack/defense) * effectiveness
+    BASE_DAMAGE * (attacking_attack / defending_attack) * effectiveness(attacking_type, defending_type)
+  end
 end
